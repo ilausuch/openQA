@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "openQA.fullname" . }}-configmap
+data:
+  database.ini: |
+    [production]
+    dsn = DBI:Pg:dbname={{ .Values.db.dbname }};host={{ .Values.db.host }};user={{ .Values.db.user }};password={{ .Values.db.password }}
+
+    [development]
+    dsn = DBI:Pg:dbname={{ .Values.db.dbname }};host={{ .Values.db.host }};user={{ .Values.db.user }};password={{ .Values.db.password }}
+  openqa.ini: |
+     [auth]
+     method = {{ .Values.auth.method }}
+
+     [logging]
+     level = {{ .Values.logging.level }}
+
+     [openid]
+     httpsonly = 0
